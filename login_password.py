@@ -1,37 +1,77 @@
 import random
+KEY = 5
 
-file = open('logins.txt',mode="w",encoding='utf-8')
-file.write('i owl')
-file.close()
+def crypt_password(password, key):
 
-file = open('passwords.txt',mode="w",encoding='utf-8')
-file.write('wasd 123456')
-file.close()
+
+    '''
+    Шифрование пароля
+    '''
+    crypt = ""
+    for bukva in password:
+       # print(ord(bukva))
+        crypt += chr(ord(bukva) ^ (key))
+    return (crypt)
+
+
+def registration(): 
+    '''регистрация нового пользователя'''
+    print('Сейчас зарегистрируем вас')
+    login = input('введите ваш логин: ')
+    password = input('введите ваш парольчик: ')
+
+    file = open('logins.txt', mode="a", encoding='utf-8')
+    file.write(f'{login}' + ' ')
+    file.close()
+    file = open('passwords.txt', mode="a", encoding='utf-8')
+    file.write(f'{crypt_password(password,key = KEY)}'+ ' ')
+    file.close()
+    print('Регистрация завершена. Пользуйтесь на здоровье!')
+
+
 
 def read_users(filename):
-    file = open('file.txt',mode="w",encoding='utf-8')
+    
+    file = open(filename, mode="r", encoding='utf-8')
     data = file.read()
     file.close()
     return data.split()
-coin = random.randint(1,2)
-if coin ==1:
-   print("решка")
-else:
-   print("орёл")
-flag = False
-while flag == False:
-   login = input ('введите ваш логин:' )
-   password = input ('введите ваш пароль:')
-print(f'вы ввели : {login} и {password}')
-   if login == "its savee" and password == "62184t82":
+def sign_in(flag):
+    login_list = read_users('logins.txt')
+    password_list = read_users('passwords.txt')
+    login = input('введите ваш логин:')
+    password = input('введите ваш пароль:')
+    print(f'вы ввели : {login} и {password}')
+    if login in login_list and crypt_password (password,key=KEY) in password_list:
        print("вы вошли в аккаунт")
        flag = True
-   elif login == 'ок яндекс' and password == "тумба юмба":
-       print("привет создатель!")
-       flag = True
-   elif login =='':
+    elif login =='':
        print("вы забыли ввести логин")
-   elif password == '':
+    elif password == '':
        print("вы забыли ввести пароль")
-   else:
+    else:
        print("ты кто такой давай до свидания")
+    return flag
+
+login_list = read_users('logins.txt')
+password_list = read_users('passwords.txt')
+flag = False
+while flag == False:
+    if flag == False:#если вы не вошли
+        way = input('что вы хотите сделать? 1 - зарегестрироваться,  2 - войти ')
+        if way == '1':
+            registration()
+        elif way == '2':
+            flag = sign_in(flag)
+    else:
+          way = input('что вы хотите сделать? 1 - выйти 2 - выйти')
+        if way == '1':
+                flag = False
+        elif way == '2':
+            print('досвидания')
+        break 
+# coin = random.randint(1, 2)
+# if coin == 1:
+#    print("решка")
+# else:
+#    print("орёл")
