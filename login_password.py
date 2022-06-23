@@ -1,5 +1,7 @@
 import random
 import number_game
+import mortal_combat
+import game_store
 KEY = 5
 
 def crypt_password(password, key):
@@ -78,7 +80,13 @@ while flag == False:
         elif way == '2':
             flag, login = sign_in(flag)
     else:
-        way = input('что вы хотите сделать? 1 - выйти из аккаунта 2 - выйти из программы 3 - открыть чат 4- cыграть в игру ')
+        way = input('''что вы хотите сделать? 
+        1 - выйти из аккаунта 
+        2 - выйти из программы 
+        3 - открыть чат 
+        4- cыграть в угадай число
+        5- посмотреть MORTAL COMBAT
+        6- зайти в стим''')
         if way == '1':
             flag = False
         elif way == '2':
@@ -88,6 +96,10 @@ while flag == False:
             chat(login)
         elif way == '4':
             number_game.game()
+        elif way == '5':
+            mortal_combat.fighting()
+        elif way == '6':
+            game_store.store()
 # coin = random.randint(1, 2)
 # if coin == 1:
 #    print("решка")
