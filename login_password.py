@@ -2,6 +2,7 @@ import random
 import number_game
 import mortal_combat
 import game_store
+import visible
 KEY = 5
 
 def crypt_password(password, key):
@@ -72,7 +73,8 @@ def chat(login):
 login_list = read_users('logins.txt')
 password_list = read_users('passwords.txt')
 flag = False
-while flag == False:
+while True:
+    visible.download()
     if flag == False:#если вы не вошли
         way = input('что вы хотите сделать? 1 - зарегестрироваться,  2 - войти  ')
         if way == '1':
